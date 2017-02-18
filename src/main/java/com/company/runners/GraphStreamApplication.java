@@ -23,11 +23,8 @@ public class GraphStreamApplication {
                 "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Graph graph = new SingleGraph("GraphWalker MeetUp");
         graph.display(true);
-        Executor executor = new TestExecutor(PetClinic.class,
-                FindOwners.class,
-                NewOwner.class,
-                OwnerInformation.class,
-                Veterinariens.class);
+        Executor executor = new TestExecutor(AutomationPractice.class,
+                AddToCart.class);
         Observer observer = new GraphStreamObserver(graph);
         executor.getMachine().addObserver(observer);
 

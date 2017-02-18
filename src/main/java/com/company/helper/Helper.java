@@ -1,15 +1,14 @@
 package com.company.helper;
 
+import java.util.List;
+import java.util.Random;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by krikar on 2015-02-01.
@@ -28,6 +27,8 @@ public class Helper {
      */
     final static int timeOut = 10;
 
+    private static WebDriver INSTANCE = null;
+
     /**
      * Generates a random number with 1 to max digits.
      *
@@ -39,19 +40,16 @@ public class Helper {
     }
 
     /**
-     * Creates an instance of the Firefox WebDriver.
-     */
-    private static class WebDriverHolder {
-        private static final WebDriver INSTANCE = new FirefoxDriver();
-    }
-
-    /**
      * If not already created, creates the singleton webdriver object.
      *
      * @return the singleton webdriver object
      */
     public static WebDriver getInstance() {
-        return WebDriverHolder.INSTANCE;
+        if (INSTANCE == null) {
+            System.setProperty("webdriver.chrome.driver", "/home/tien/Downloads/chromedriver");
+            INSTANCE = new ChromeDriver();
+        }
+        return INSTANCE;
     }
 
     /**

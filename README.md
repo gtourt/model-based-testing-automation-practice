@@ -5,21 +5,6 @@ model-based-testing-automation-practice [![Build Status](https://travis-ci.org/G
 
 This is an example of model based testing based on [Pet Clinic Example](https://github.com/GraphWalker/graphwalker-example/tree/master/java-petclinic). The software under test is [Automation Practice](http://automationpractice.com)
 
-## Getting Started
-
-First you need to download the code.
-
-```
-git clone git@github.com:tienvx/model-based-testing-automation-practice.git
-```
-
-Then you need to open the code using eclipse.
-
-The models are in src/main/java/resources/com/company/models. To work with models, follow these steps:
-1. We can open and edit them using [yEd](http://www.yworks.com/en/products/yfiles/yed/).
-2. To generate code from models, right click on project > Run As > Maven generate-sources. Code generated are located under target/generated-sources/graphwalker/com/company/models and can be used as based classes for our model implementations.
-3. Move generated code to src/main/java/com/company/models
-
 ### Prerequisites
 
 You need to install these software to run this example.
@@ -28,6 +13,22 @@ You need to install these software to run this example.
 * Maven installed (version equal or greater than 3.2.3)
 * git installed
 * Latest Chrome installed
+
+## Getting Started
+
+First you need to download the code. And then generate source code from models:
+
+```
+git clone git@github.com:tienvx/model-based-testing-automation-practice.git
+cd model-based-testing-automation-practice
+mvn graphwalker:generate-sources
+```
+
+Then you can open code using your favorite ide.
+
+The models are locate at src/main/java/resources/com/company. We can open
+and edit them using [yEd](http://www.yworks.com/en/products/yfiles/yed/).
+Generated code locate at target/generated-sources/graphwalker/com/company
 
 ## Running the tests
 
