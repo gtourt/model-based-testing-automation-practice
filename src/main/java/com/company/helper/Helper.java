@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 
 /**
  * Created by krikar on 2015-02-01.
@@ -46,7 +47,7 @@ public class Helper {
      */
     public static WebDriver getInstance() {
         if (INSTANCE == null) {
-            System.setProperty("webdriver.chrome.driver", "/home/tien/Downloads/chromedriver");
+            ChromeDriverManager.getInstance().setup();
             INSTANCE = new ChromeDriver();
         }
         return INSTANCE;
