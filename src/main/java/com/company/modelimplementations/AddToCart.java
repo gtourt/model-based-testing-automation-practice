@@ -26,42 +26,43 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void v_AddToCartDialog() {
-        Assert.assertTrue(Helper.WaitForElement(By.xpath("//div[@id='layer_cart']//div[contains(@class,'layer_cart_product')]/h2")).getText().contains("Product successfully added to your shopping cart"));
+        Assert.assertTrue(Helper.waitForElement(By.xpath("//div[@id='layer_cart']//div[contains(@class,'layer_cart_product')]/h2")).getText().contains("Product successfully added to your shopping cart"));
     }
 
     @Override
     public void e_ProceedToCheckout() {
-        Helper.WaitForElement(By.xpath("//a[@title='Proceed to checkout']")).click();
+        Helper.waitForElement(By.xpath("//a[@title='Proceed to checkout']")).click();
     }
 
     @Override
     public void e_HomePage() {
-        Helper.WaitForElement(By.xpath("//a[@title='Return to Home']")).click();
+        Helper.waitForElement(By.xpath("//a[@title='Return to Home']")).click();
     }
 
     @Override
     public void e_AddToCart() {
-        List<WebElement> buttons = Helper.WaitForElements(By.xpath("//a[contains(@class, 'ajax_add_to_cart_button')]"));
-        WebElement button = buttons.get((new Random()).nextInt(buttons.size()));
+        List<WebElement> products = Helper.waitForElements(By.xpath("//ul[@id='homefeatured']/li/div[@class='product-container']"));
+        WebElement product = products.get((new Random()).nextInt(products.size()));
+        WebElement button = product.findElement(By.xpath("//a[@title='Add to cart']"));
         Actions builder = new Actions(Helper.getInstance());    
-        builder.moveToElement(button).click(button);    
+        builder.moveToElement(product).moveToElement(button).click(button);    
         builder.perform();
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
 
     @Override
     public void e_ContinueShopping() {
-        Helper.WaitForElement(By.xpath("//span[@title='Continue shopping']")).click();
+        Helper.waitForElement(By.xpath("//span[@title='Continue shopping']")).click();
     }
 
     @Override
     public void v_Cart() {
-        Assert.assertTrue(Helper.WaitForElement(By.xpath("//h1[@class='cart_title']")).getText().contains("Shopping-cart summary"));
+        Assert.assertTrue(Helper.waitForElement(By.xpath("//h1[@id='cart_title']")).getText().contains("SHOPPING-CART SUMMARY"));
     }
 
     @Override
     public void e_Subtract() {
-        List<WebElement> buttons = Helper.WaitForElements(By.xpath("//a[contains(@class='button-minus')]"));
+        List<WebElement> buttons = Helper.waitForElements(By.xpath("//a[@title='Subtract']"));
         WebElement button = buttons.get((new Random()).nextInt(buttons.size()));
         Actions builder = new Actions(Helper.getInstance());    
         builder.moveToElement(button).click(button);    
@@ -71,7 +72,7 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void e_Add() {
-        List<WebElement> buttons = Helper.WaitForElements(By.xpath("//a[contains(@class='button-plus')]"));
+        List<WebElement> buttons = Helper.waitForElements(By.xpath("//a[@title='Add']"));
         WebElement button = buttons.get((new Random()).nextInt(buttons.size()));
         Actions builder = new Actions(Helper.getInstance());    
         builder.moveToElement(button).click(button);    
@@ -81,6 +82,6 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void v_HomePage() {
-        Assert.assertTrue(Helper.WaitForElement(By.xpath("//ul[contains(@class,'htmlcontent-home')]")).findElements(By.tagName("li")).size() == 5);
+        Helper.assertPath("/index.php");
     }
 }

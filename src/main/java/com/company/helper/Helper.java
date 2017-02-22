@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by krikar on 2015-02-01.
@@ -60,7 +62,7 @@ public class Helper {
      * @param by The description of the element
      * @return The matching element if found.
      */
-    public static WebElement WaitForElement(By by) {
+    public static WebElement waitForElement(By by) {
         for (int second = 0; ; second++) {
             if (second >= timeOut) {
                 Assert.fail("Timeout occurred while waiting for: " + by.toString());
@@ -85,7 +87,7 @@ public class Helper {
      * @param by The description of the element
      * @return A list of matching element(s) if found.
      */
-    public static List<WebElement> WaitForElements(By by) {
+    public static List<WebElement> waitForElements(By by) {
         for (int second = 0; ; second++) {
             if (second >= timeOut) {
                 Assert.fail("timeout");
@@ -100,6 +102,20 @@ public class Helper {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
+        }
+    }
+
+    /**
+     * Assert path of current url.
+     *
+     * @param path Expected path
+     */
+    public static void assertPath(String path) {
+        try {
+            URL url = new URL(INSTANCE.getCurrentUrl());
+            Assert.assertEquals(path, url.getPath());
+        } catch (MalformedURLException e) {
+            Assert.fail("Invalid url");
         }
     }
 }

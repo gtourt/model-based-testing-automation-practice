@@ -7,6 +7,8 @@ import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Implements the model (and interface) AutomationPracticeSharedState
@@ -19,32 +21,34 @@ public class AutomationPractice extends ExecutionContext implements AutomationPr
 
     @Override
     public void v_Cart() {
-        Assert.assertTrue(Helper.WaitForElement(By.xpath("//h1[@class='cart_title']")).getText().contains("Shopping-cart summary"));
+        Assert.assertTrue(Helper.waitForElement(By.xpath("//h1[@id='cart_title']")).getText().contains("SHOPPING-CART SUMMARY"));
     }
 
     @Override
     public void e_HomePage() {
-        Helper.WaitForElement(By.xpath("//a[@title='Return to Home']")).click();
+        Helper.waitForElement(By.xpath("//a[@title='Return to Home']")).click();
     }
 
     @Override
     public void e_SearchProducts() {
-        Helper.WaitForElement(By.xpath("//button[contains(@class,'button-search')]")).click();
+        Helper.waitForElement(By.xpath("//button[contains(@class,'button-search')]")).click();
     }
 
     @Override
     public void v_SearchProducts() {
-        Assert.assertTrue(Helper.WaitForElement(By.xpath("//h1[contains(@class,'product-listing')]")).getText().contains("Search"));
+        Pattern p = Pattern.compile("SEARCH\\s+\\d+ results have been found.");
+        Matcher m = p.matcher(Helper.waitForElement(By.xpath("//h1[contains(@class,'product-listing')]")).getText());
+        Assert.assertTrue(m.find());
     }
 
     @Override
     public void e_Cart() {
-        Helper.WaitForElement(By.xpath("//div[@class='shopping_cart']")).click();
+        Helper.waitForElement(By.xpath("//a[@title='View my shopping cart']")).click();
     }
 
     @Override
     public void v_HomePage() {
-        Assert.assertTrue(Helper.WaitForElement(By.xpath("//ul[contains(@class,'htmlcontent-home')]")).findElements(By.tagName("li")).size() == 5);
+        Helper.assertPath("/index.php");
     }
 
     @Override
