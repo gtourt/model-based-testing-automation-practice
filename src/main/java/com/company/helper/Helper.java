@@ -25,23 +25,23 @@ public class Helper {
      * Random number generator.
      * Will be used to create random data used for input in test.
      */
-    static private Random random = new Random(System.currentTimeMillis());
+    static private final Random random = new Random(System.currentTimeMillis());
 
     /**
      * Timeout time in seconds used for waiting for element(s) to show up.
      */
-    final static int timeOut = 10;
+    final static int TIMEOUT = 10;
 
     private static WebDriver INSTANCE = null;
 
     /**
-     * Generates a random number with 1 to max digits.
+     * Get random element from a list.
      *
-     * @param max Maximum length of digits.
-     * @return The random number
+     * @param elements List of elements.
+     * @return The random element
      */
-    public static int getRandomInt(int max) {
-        return random.nextInt(max) + 1;
+    public static WebElement getRandomElement(List<WebElement> elements) {
+        return elements.get(random.nextInt(elements.size()));
     }
 
     /**
@@ -65,7 +65,7 @@ public class Helper {
      * @return The matching element if found.
      */
     public static WebElement waitForElement(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
@@ -77,7 +77,7 @@ public class Helper {
      * @return A list of matching element(s) if found.
      */
     public static List<WebElement> waitForElements(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
         return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
@@ -89,7 +89,7 @@ public class Helper {
      * @return The matching element if found.
      */
     public static WebElement waitForElementVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -101,7 +101,7 @@ public class Helper {
      * @return A list of matching element(s) if found.
      */
     public static List<WebElement> waitForElementsVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 

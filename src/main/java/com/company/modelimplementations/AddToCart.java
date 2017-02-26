@@ -4,7 +4,6 @@ package com.company.modelimplementations;
 import com.company.AddToCartState;
 import com.company.helper.Helper;
 import java.util.List;
-import java.util.Random;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.junit.Assert;
@@ -42,8 +41,8 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
     @Override
     public void e_AddToCart() {
         List<WebElement> products = Helper.waitForElements(By.xpath("//ul[@id='homefeatured']/li/div[@class='product-container']"));
-        WebElement product = products.get((new Random()).nextInt(products.size()));
-        WebElement button = product.findElement(By.xpath("//a[@title='Add to cart']"));
+        WebElement product = Helper.getRandomElement(products);
+        WebElement button = product.findElement(By.xpath(".//a[@title='Add to cart']"));
         Actions builder = new Actions(Helper.getInstance());    
         builder.moveToElement(product).moveToElement(button).click(button);    
         builder.perform();
@@ -63,7 +62,7 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
     @Override
     public void e_Subtract() {
         List<WebElement> buttons = Helper.waitForElements(By.xpath("//a[@title='Subtract']"));
-        WebElement button = buttons.get((new Random()).nextInt(buttons.size()));
+        WebElement button = Helper.getRandomElement(buttons);
         Actions builder = new Actions(Helper.getInstance());    
         builder.moveToElement(button).click(button);    
         builder.perform();
@@ -73,7 +72,7 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
     @Override
     public void e_Add() {
         List<WebElement> buttons = Helper.waitForElements(By.xpath("//a[@title='Add']"));
-        WebElement button = buttons.get((new Random()).nextInt(buttons.size()));
+        WebElement button = Helper.getRandomElement(buttons);
         Actions builder = new Actions(Helper.getInstance());    
         builder.moveToElement(button).click(button);    
         builder.perform();
