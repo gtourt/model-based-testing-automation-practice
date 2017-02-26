@@ -26,12 +26,12 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void v_AddToCartDialog() {
-        Assert.assertTrue(Helper.waitForElement(By.xpath("//div[@id='layer_cart']//div[contains(@class,'layer_cart_product')]/h2")).getText().contains("Product successfully added to your shopping cart"));
+        Assert.assertTrue(Helper.waitForElementVisible(By.xpath("//div[@id='layer_cart']//div[contains(@class,'layer_cart_product')]/h2")).getText().contains("Product successfully added to your shopping cart"));
     }
 
     @Override
     public void e_ProceedToCheckout() {
-        Helper.waitForElement(By.xpath("//a[@title='Proceed to checkout']")).click();
+        Helper.waitForElement(By.xpath("//a[@title='Proceed to checkout']/span")).click();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void e_ContinueShopping() {
-        Helper.waitForElement(By.xpath("//span[@title='Continue shopping']")).click();
+        Helper.waitForElement(By.xpath("//span[@title='Continue shopping']/span")).click();
     }
 
     @Override

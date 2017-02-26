@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by krikar on 2015-02-01.
@@ -57,52 +59,50 @@ public class Helper {
 
     /**
      * Will wait for a specified web element to appear. If not found
-     * an assertion will fail.
+     * an exception will be thrown out.
      *
      * @param by The description of the element
      * @return The matching element if found.
      */
     public static WebElement waitForElement(By by) {
-        for (int second = 0; ; second++) {
-            if (second >= timeOut) {
-                Assert.fail("Timeout occurred while waiting for: " + by.toString());
-            }
-            try {
-                return getInstance().findElement(by);
-            } catch (Exception e1) {
-                log.debug(e1.getMessage());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e2) {
-                    log.debug(e2.getMessage());
-                }
-            }
-        }
+        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     /**
      * Will wait for a specified web element(s) to appear. If not found
-     * an assertion will fail.
+     * an exception will be thrown out.
      *
      * @param by The description of the element
      * @return A list of matching element(s) if found.
      */
     public static List<WebElement> waitForElements(By by) {
-        for (int second = 0; ; second++) {
-            if (second >= timeOut) {
-                Assert.fail("timeout");
-            }
-            List<WebElement> elements = null;
-            try {
-                elements = getInstance().findElements(by);
-                return elements;
-            } catch (Exception e) {
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-        }
+        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+    }
+
+    /**
+     * Will wait for a specified web element to be visible. If not found
+     * an exception will be thrown out.
+     *
+     * @param by The description of the element
+     * @return The matching element if found.
+     */
+    public static WebElement waitForElementVisible(By by) {
+        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    /**
+     * Will wait for a specified web element(s) to be visible. If not found
+     * an exception will be thrown out.
+     *
+     * @param by The description of the element
+     * @return A list of matching element(s) if found.
+     */
+    public static List<WebElement> waitForElementsVisible(By by) {
+        WebDriverWait wait = new WebDriverWait(getInstance(), timeOut);
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     /**
