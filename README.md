@@ -38,6 +38,13 @@ Simply run this command
 mvn graphwalker:test
 ```
 
+## Debug
+
+1. Set break points (Debug -> New Breakpoint)
+2. Right click on the project, choose Run Maven -> debug-maven
+
+![Debug](/resources/debug.png)
+
 ## Built With
 
 * [GraphWalker](http://graphwalker.github.io) - The model based testing tool
