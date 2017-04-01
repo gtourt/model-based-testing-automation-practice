@@ -53,7 +53,7 @@ public class AutomationPractice extends ExecutionContext implements AutomationPr
 
     @Override
     public void e_StartBrowser() {
-        Helper.getInstance().get("http://automationpractice.com");
+        Helper.getDriver().get("http://automationpractice.com");
     }
 
     @BeforeExecution
@@ -68,6 +68,7 @@ public class AutomationPractice extends ExecutionContext implements AutomationPr
         System.out.println("AutomationPractice: Any cleanup  steps happens here. " +
                 "The annotation @AfterExecution makes sure that after the test is done, " +
                 "this method is called last.");
+        Helper.getDriver().quit();
     }
 
     @BeforeElement

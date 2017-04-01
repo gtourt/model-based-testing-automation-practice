@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -32,7 +33,7 @@ public class Helper {
      */
     final static int TIMEOUT = 10;
 
-    private static WebDriver INSTANCE = null;
+    private static WebDriver driver = null;
 
     /**
      * Get random element from a list.
@@ -49,12 +50,12 @@ public class Helper {
      *
      * @return the singleton webdriver object
      */
-    public static WebDriver getInstance() {
-        if (INSTANCE == null) {
+    public static WebDriver getDriver() {
+        if (driver == null) {
             ChromeDriverManager.getInstance().setup();
-            INSTANCE = new ChromeDriver();
+            driver = new ChromeDriver();
         }
-        return INSTANCE;
+        return driver;
     }
 
     /**
@@ -65,7 +66,7 @@ public class Helper {
      * @return The matching element if found.
      */
     public static WebElement waitForElement(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
@@ -77,7 +78,7 @@ public class Helper {
      * @return A list of matching element(s) if found.
      */
     public static List<WebElement> waitForElements(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
         return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
@@ -89,7 +90,7 @@ public class Helper {
      * @return The matching element if found.
      */
     public static WebElement waitForElementVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -101,7 +102,7 @@ public class Helper {
      * @return A list of matching element(s) if found.
      */
     public static List<WebElement> waitForElementsVisible(By by) {
-        WebDriverWait wait = new WebDriverWait(getInstance(), TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
@@ -112,10 +113,18 @@ public class Helper {
      */
     public static void assertPath(String path) {
         try {
-            URL url = new URL(INSTANCE.getCurrentUrl());
+            URL url = new URL(driver.getCurrentUrl());
             Assert.assertEquals(path, url.getPath());
         } catch (MalformedURLException e) {
             Assert.fail("Invalid url");
         }
+    }
+
+    public static void scrollElementIntoMiddle(WebElement element) {
+        String scrollElementIntoMiddle = "var viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
+                                                    + "var elementTop = arguments[0].getBoundingClientRect().top;"
+                                                    + "window.scrollBy(0, elementTop-(viewPortHeight/2));";
+
+        ((JavascriptExecutor) driver).executeScript(scrollElementIntoMiddle, element);
     }
 }

@@ -30,7 +30,9 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void e_ProceedToCheckout() {
-        Helper.waitForElement(By.xpath("//a[@title='Proceed to checkout']/span")).click();
+        WebElement button = Helper.waitForElement(By.xpath("//a[@title='Proceed to checkout']"));
+        Helper.scrollElementIntoMiddle(button);
+        button.click();
     }
 
     @Override
@@ -43,15 +45,17 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
         List<WebElement> products = Helper.waitForElements(By.xpath("//ul[@id='homefeatured']/li/div[@class='product-container']"));
         WebElement product = Helper.getRandomElement(products);
         WebElement button = product.findElement(By.xpath(".//a[@title='Add to cart']"));
-        Actions builder = new Actions(Helper.getInstance());    
-        builder.moveToElement(product).moveToElement(button).click(button);    
+        Actions builder = new Actions(Helper.getDriver());
+        builder.moveToElement(product).moveToElement(button).click(button);
         builder.perform();
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
 
     @Override
     public void e_ContinueShopping() {
-        Helper.waitForElement(By.xpath("//span[@title='Continue shopping']/span")).click();
+        WebElement button = Helper.waitForElement(By.xpath("//span[@title='Continue shopping']"));
+        Helper.scrollElementIntoMiddle(button);
+        button.click();
     }
 
     @Override
@@ -63,8 +67,8 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
     public void e_Subtract() {
         List<WebElement> buttons = Helper.waitForElements(By.xpath("//a[@title='Subtract']"));
         WebElement button = Helper.getRandomElement(buttons);
-        Actions builder = new Actions(Helper.getInstance());    
-        builder.moveToElement(button).click(button);    
+        Actions builder = new Actions(Helper.getDriver());
+        builder.moveToElement(button).click(button);
         builder.perform();
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
@@ -73,8 +77,8 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
     public void e_Add() {
         List<WebElement> buttons = Helper.waitForElements(By.xpath("//a[@title='Add']"));
         WebElement button = Helper.getRandomElement(buttons);
-        Actions builder = new Actions(Helper.getInstance());    
-        builder.moveToElement(button).click(button);    
+        Actions builder = new Actions(Helper.getDriver());
+        builder.moveToElement(button).click(button);
         builder.perform();
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
