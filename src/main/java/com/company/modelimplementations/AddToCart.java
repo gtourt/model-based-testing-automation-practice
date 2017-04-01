@@ -30,14 +30,16 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
 
     @Override
     public void e_ProceedToCheckout() {
-        WebElement button = Helper.waitForElement(By.xpath("//a[@title='Proceed to checkout']"));
+        WebElement button = Helper.waitForElementVisible(By.xpath("//a[@title='Proceed to checkout']"));
         Helper.scrollElementIntoMiddle(button);
         button.click();
+        Helper.waitForPageToLoad();
     }
 
     @Override
     public void e_HomePage() {
         Helper.waitForElement(By.xpath("//a[@title='Return to Home']")).click();
+        Helper.waitForPageToLoad();
     }
 
     @Override
@@ -48,12 +50,14 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
         Actions builder = new Actions(Helper.getDriver());
         builder.moveToElement(product).moveToElement(button).click(button);
         builder.perform();
+        Helper.waitForAjax();
+        Helper.waitForElementVisible(By.xpath("//div[@id='layer_cart']"));
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
 
     @Override
     public void e_ContinueShopping() {
-        WebElement button = Helper.waitForElement(By.xpath("//span[@title='Continue shopping']"));
+        WebElement button = Helper.waitForElementVisible(By.xpath("//span[@title='Continue shopping']"));
         Helper.scrollElementIntoMiddle(button);
         button.click();
     }
@@ -70,6 +74,9 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
         Actions builder = new Actions(Helper.getDriver());
         builder.moveToElement(button).click(button);
         builder.perform();
+        Helper.waitForAjax();
+        // In case there are no products in cart.
+        Helper.waitForPageToLoad();
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
 
@@ -80,6 +87,7 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
         Actions builder = new Actions(Helper.getDriver());
         builder.moveToElement(button).click(button);
         builder.perform();
+        Helper.waitForAjax();
         log.info("Products in cart: " + getAttribute("productsInCart"));
     }
 

@@ -27,11 +27,13 @@ public class AutomationPractice extends ExecutionContext implements AutomationPr
     @Override
     public void e_HomePage() {
         Helper.waitForElement(By.xpath("//a[@title='Return to Home']")).click();
+        Helper.waitForPageToLoad();
     }
 
     @Override
     public void e_SearchProducts() {
         Helper.waitForElement(By.xpath("//button[contains(@class,'button-search')]")).click();
+        Helper.waitForPageToLoad();
     }
 
     @Override
@@ -44,6 +46,7 @@ public class AutomationPractice extends ExecutionContext implements AutomationPr
     @Override
     public void e_Cart() {
         Helper.waitForElement(By.xpath("//a[@title='View my shopping cart']")).click();
+        Helper.waitForPageToLoad();
     }
 
     @Override

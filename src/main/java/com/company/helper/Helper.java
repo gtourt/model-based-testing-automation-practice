@@ -13,6 +13,7 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -126,5 +127,25 @@ public class Helper {
                                                     + "window.scrollBy(0, elementTop-(viewPortHeight/2));";
 
         ((JavascriptExecutor) driver).executeScript(scrollElementIntoMiddle, element);
+    }
+
+    public static void waitForPageToLoad() {
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
+
+        wait.until((ExpectedCondition<Boolean>) (WebDriver localdriver) -> {
+            return ((JavascriptExecutor) localdriver).executeScript(
+                    "return document.readyState"
+            ).equals("complete");
+        });
+    }
+
+    public static void waitForAjax() {
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
+
+        wait.until((ExpectedCondition<Boolean>) (WebDriver localdriver) -> {
+            return ((JavascriptExecutor) localdriver).executeScript(
+                    "return jQuery.active == 0"
+            ).equals(true);
+        });
     }
 }
