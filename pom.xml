@@ -8,7 +8,6 @@
     <name>Model Based Testing Automation Practice</name>
     <groupId>com.company.model-based-testing-automation-practice</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
     <build>
         <plugins>
