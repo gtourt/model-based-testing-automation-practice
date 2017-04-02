@@ -48,8 +48,10 @@ public class AddToCart extends ExecutionContext implements AddToCartState {
         WebElement product = Helper.getRandomElement(products);
         WebElement button = product.findElement(By.xpath(".//a[@title='Add to cart']"));
         Actions builder = new Actions(Helper.getDriver());
-        builder.moveToElement(product).moveToElement(button).click(button);
-        builder.perform();
+        builder.moveToElement(product).perform();
+        Helper.waitForElementVisible(button);
+        builder.moveToElement(button).perform();
+        button.click();
         Helper.waitForAjax();
         Helper.waitForElementVisible(By.xpath("//div[@id='layer_cart']"));
         log.info("Products in cart: " + getAttribute("productsInCart"));

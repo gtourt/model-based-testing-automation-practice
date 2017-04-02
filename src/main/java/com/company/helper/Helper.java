@@ -148,4 +148,9 @@ public class Helper {
             ).equals(true);
         });
     }
+
+    public static WebElement waitForElementVisible(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), TIMEOUT);
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
 }

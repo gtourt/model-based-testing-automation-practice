@@ -64,6 +64,7 @@ public class AutomationPractice extends ExecutionContext implements AutomationPr
         System.out.println("AutomationPractice: Any setup steps happens here. " +
                 "The annotation @BeforeExecution makes sure that before any elements in the " +
                 "model is called, this method is called first");
+        Helper.getDriver().manage().window().maximize();
     }
 
     @AfterExecution
