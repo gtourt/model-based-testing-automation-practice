@@ -7,7 +7,7 @@
     <artifactId>model-based-testing-automation-practice</artifactId>
     <name>Model Based Testing Automation Practice</name>
     <groupId>com.company.model-based-testing-automation-practice</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <build>
         <plugins>
@@ -48,12 +48,17 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.0.1</version>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>RELEASE</version>
+            <version>3.5</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -63,7 +68,7 @@
         <dependency>
             <groupId>org.graphstream</groupId>
             <artifactId>gs-ui</artifactId>
-            <version>RELEASE</version>
+            <version>1.3</version>
             <exclusions>
                 <exclusion>
                     <artifactId>xml-apis</artifactId>
@@ -74,12 +79,7 @@
         <dependency>
             <groupId>org.graphstream</groupId>
             <artifactId>gs-core</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>1.6.0</version>
+            <version>1.3</version>
         </dependency>
     </dependencies>
 
